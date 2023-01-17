@@ -9,7 +9,7 @@ import UIKit
 
 class InfoViewController: UIViewController {
     
-    private lazy var actionButton: UIButton = {
+    private lazy var infoButton: UIButton = {
 
         let button = UIButton()
         
@@ -27,37 +27,40 @@ class InfoViewController: UIViewController {
         super.viewDidLoad()
 
         view.backgroundColor = .lightGray
+        view.addSubview(infoButton)
         
         let safeAreaLayoutGuide = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
-            actionButton.leadingAnchor.constraint(
+            infoButton.leadingAnchor.constraint(
                 equalTo: safeAreaLayoutGuide.leadingAnchor,
                 constant: 30.0
             ),
-            actionButton.trailingAnchor.constraint(
+            infoButton.trailingAnchor.constraint(
                 equalTo: safeAreaLayoutGuide.trailingAnchor,
                 constant: -30.0
             ),
-            actionButton.topAnchor.constraint(
+            infoButton.topAnchor.constraint(
                 equalTo: safeAreaLayoutGuide.topAnchor,
                 constant: 30),
-            actionButton.heightAnchor.constraint(equalToConstant: 44.0)
+            infoButton.heightAnchor.constraint(equalToConstant: 44.0)
         ])
         
-        actionButton.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
+        infoButton.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
      
     }
     
     @objc func buttonPressed(_ sender: UIButton) {
         let alert = UIAlertController(title: "My Alert", message: "This is an alert.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
-        NSLog("The \"OK\" alert occured.")
-        }))
-        alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: "Dismiss"), style: .default, handler: { _ in
-        NSLog("The \"Cancel\" alert occured.")
-        }))
         
-        self.present(alert, animated: true, completion: nil)
+        let alertOK = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(alertOK)
+        
+        let alertCancel = UIAlertAction (title: "Cancel", style: .default) { alert in
+            print("The alert was canceled")
+        }
+        alert.addAction(alertCancel)
+        
+        present(alert, animated: true, completion: nil)
     }
 
 }

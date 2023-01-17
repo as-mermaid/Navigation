@@ -58,6 +58,7 @@ class FeedViewController: UIViewController {
         postViewController.modalPresentationStyle = .fullScreen
         postViewController.postTitle = post.title
         
-        present(postViewController, animated: true)
+        navigationController?.pushViewController(postViewController, animated: true)
+        //present(postViewController, animated: true)
     }
 }
