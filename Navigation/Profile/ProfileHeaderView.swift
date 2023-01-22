@@ -11,78 +11,72 @@ let imgSize: CGFloat = 150
 let offset1: CGFloat = 16
 let offset2: CGFloat = 27
 //let offset3: CGFloat = 34
+private var statusText: String = ""
 
 class ProfileHeaderView: UIView {
     
     private lazy var image: UIImageView = {
         let image = UIImageView()
+        image.image = UIImage(named: "ProfileImage")
+        image.layer.borderWidth = 3
+        image.layer.borderColor = UIColor.white.cgColor
+        image.layer.cornerRadius = imgSize / 2
+        image.clipsToBounds = true
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
 
     private lazy var profileName: UILabel = {
         let name = UILabel()
+        name.text = "Mermaid"
+        name.font = UIFont.boldSystemFont(ofSize: 18)
+        name.textColor = .black
         name.translatesAutoresizingMaskIntoConstraints = false
         return name
     }()
 
     private lazy var statusLabel: UILabel = {
         let status = UILabel()
+        status.text = statusText
+        status.textColor = .gray
+        status.font = UIFont(name: "System", size: 14)
         status.translatesAutoresizingMaskIntoConstraints = false
         return status
     }()
     
     private lazy var statusField: UITextField = {
         let field = UITextField()
+        field.text = statusText
+        field.placeholder = "Add status"
+        field.layer.borderWidth = 1
+        field.layer.borderColor = UIColor.black.cgColor
+        field.backgroundColor = .white
+        field.font = UIFont(name: "System", size: 15)
+        field.textColor = .black
+        field.layer.cornerRadius = 12
+        field.clipsToBounds = true
+        field.leftView = UIView (frame: CGRect(x: 0, y: 0, width: 10, height: field.frame.height))
+        field.leftViewMode = .always
         field.translatesAutoresizingMaskIntoConstraints = false
         return field
     }()
     
     private lazy var actionButton: UIButton = {
         let button = UIButton()
+        button.backgroundColor = .systemBlue
+        button.layer.cornerRadius = 4
+        button.setTitle("Set status", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.layer.shadowOffset = CGSize(width: 4, height: 4)
+        button.layer.shadowRadius = 4
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOpacity = 0.7
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
-    private var statusText: String = "Nice place for some quote"
-    
     override func setNeedsLayout() {
         super.setNeedsLayout()
-        
-        image.frame.size.width = imgSize
-        image.image = UIImage(named: "ProfileImage")
-        image.layer.borderWidth = 3
-        image.layer.borderColor = UIColor.white.cgColor
-        image.layer.cornerRadius = image.frame.size.width / 2
-        image.clipsToBounds = true
-        
-        profileName.text = "Mermaid"
-        profileName.font = UIFont.boldSystemFont(ofSize: 18)
-        profileName.textColor = .black
-        
-        statusLabel.text = statusText
-        statusLabel.textColor = .gray
-        statusLabel.font = UIFont(name: "System", size: 14)
-        
-        statusField.text = statusText
-        statusField.layer.borderWidth = 1
-        statusField.layer.borderColor = UIColor.black.cgColor
-        statusField.backgroundColor = .white
-        statusField.font = UIFont(name: "System", size: 15)
-        statusField.textColor = .black
-        statusField.layer.cornerRadius = 12
-        statusField.clipsToBounds = true
-        statusField.leftView = UIView (frame: CGRect(x: 0, y: 0, width: 10, height: statusField.frame.height))
-        statusField.leftViewMode = .always
-        
-        actionButton.backgroundColor = .systemBlue
-        actionButton.layer.cornerRadius = 4
-        actionButton.setTitle("Set status", for: .normal)
-        actionButton.setTitleColor(.white, for: .normal)
-        actionButton.layer.shadowOffset = CGSize(width: 4, height: 4)
-        actionButton.layer.shadowRadius = 4
-        actionButton.layer.shadowColor = UIColor.black.cgColor
-        actionButton.layer.shadowOpacity = 0.7
         
         addSubview(image)
         addSubview(profileName)
