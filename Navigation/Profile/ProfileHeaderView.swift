@@ -108,7 +108,8 @@ class ProfileHeaderView: UIView {
             setStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: offset1),
             setStatusButton.leadingAnchor.constraint(equalTo: safeAreaGuide.leadingAnchor, constant: offset1),
             setStatusButton.trailingAnchor.constraint(equalTo: safeAreaGuide.trailingAnchor, constant: -offset1),
-            setStatusButton.heightAnchor.constraint(equalToConstant: 50)
+            setStatusButton.heightAnchor.constraint(equalToConstant: 50),
+            setStatusButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -offset1)
         ])
         
         setStatusButton.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
