@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		311856172979E31300673F27 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311856162979E31300673F27 /* ProfileHeaderView.swift */; };
+		3118561B29808B7500673F27 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3118561A29808B7500673F27 /* LogInViewController.swift */; };
 		313E976E29736537006214A9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313E976D29736537006214A9 /* AppDelegate.swift */; };
 		313E977029736537006214A9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313E976F29736537006214A9 /* SceneDelegate.swift */; };
 		313E977229736537006214A9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313E977129736537006214A9 /* ViewController.swift */; };
@@ -22,6 +23,7 @@
 
 /* Begin PBXFileReference section */
 		311856162979E31300673F27 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
+		3118561A29808B7500673F27 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		313E976A29736537006214A9 /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		313E976D29736537006214A9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		313E976F29736537006214A9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -52,6 +54,7 @@
 			children = (
 				311856162979E31300673F27 /* ProfileHeaderView.swift */,
 				313E978329736A77006214A9 /* ProfileViewController.swift */,
+				3118561A29808B7500673F27 /* LogInViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -168,6 +171,7 @@
 				313E978229736A61006214A9 /* FeedViewController.swift in Sources */,
 				313E978829737884006214A9 /* Post.swift in Sources */,
 				313E978A2973824D006214A9 /* InfoViewController.swift in Sources */,
+				3118561B29808B7500673F27 /* LogInViewController.swift in Sources */,
 				313E977029736537006214A9 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
