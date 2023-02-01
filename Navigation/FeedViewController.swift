@@ -9,7 +9,7 @@ import UIKit
 
 class FeedViewController: UIViewController {
     
-    var post = Post (title: "First Post")
+//    var post = Post (title: "First Post")
     
     private lazy var actionButton1: UIButton = {
         let button = UIButton()
@@ -84,7 +84,7 @@ class FeedViewController: UIViewController {
         
         postViewController.modalTransitionStyle = .coverVertical
         postViewController.modalPresentationStyle = .fullScreen
-        postViewController.postTitle = post.title
+//        postViewController.postTitle = post.title
         
         navigationController?.pushViewController(postViewController, animated: true)
         //present(postViewController, animated: true)
