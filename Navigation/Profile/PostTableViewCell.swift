@@ -119,6 +119,6 @@ class PostTableViewCell: UITableViewCell {
         postImageView.image = UIImage(named: model.image)
         descriptionLabel.text = model.description
         likesLabel.text = "Likes: " + String(model.likes)
-        viewsLabel.text = "Voews: " + String(model.views)
+        viewsLabel.text = "Views: " + String(model.views)
     }
 }
