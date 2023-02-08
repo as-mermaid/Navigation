@@ -12,6 +12,7 @@ let offset1: CGFloat = 16
 let offset2: CGFloat = 27
 //let offset3: CGFloat = 34
 private var statusText: String = ""
+private var avatarOriginCenter = CGPoint ()
 
 class ProfileHeaderView: UIView {
     
@@ -23,6 +24,15 @@ class ProfileHeaderView: UIView {
         image.layer.cornerRadius = imgSize / 2
         image.clipsToBounds = true
         image.translatesAutoresizingMaskIntoConstraints = false
+        
+        image.isUserInteractionEnabled = true
+        
+        let tapAvatar = UITapGestureRecognizer (
+            target: self,
+            action: #selector(didTapAvatar)
+        )
+        image.addGestureRecognizer(tapAvatar)
+        
         return image
     }()
 
@@ -75,14 +85,74 @@ class ProfileHeaderView: UIView {
         return button
     }()
     
+    private lazy var avatarBackground: UIView = {
+        let view = UIView(frame: CGRectMake(0, 0, UIScreen.main.bounds.width, UIScreen.main.bounds.height))
+        view.backgroundColor = .white
+        view.isHidden = true
+        view.alpha = 0
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private lazy var avatarCloseButton: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(systemName: "xmark.square")
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.alpha = 0
+        
+        image.isUserInteractionEnabled = true
+        
+        let tapCloseAvatar = UITapGestureRecognizer (
+            target: self,
+            action: #selector(didTapCloseAvatar)
+        )
+        image.addGestureRecognizer(tapCloseAvatar)
+        
+        return image
+    }()
+    
     override func setNeedsLayout() {
         super.setNeedsLayout()
         
-        addSubview(avatarImageView)
+        addSubviews ()
+        setupConstraints ()
+        
+        // MARK: Actions
+        
+        setStatusButton.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
+        statusTextField.addTarget(self, action: #selector(statusTextChanged(_:)), for: .editingChanged)
+        
+    }
+
+    @objc func buttonPressed(_ sender: UIButton) {
+        statusLabel.text = statusText
+    }
+    
+    @objc func statusTextChanged(_ sender: UITextField) {
+        statusText = statusTextField.text ?? ""
+    }
+    
+    @objc func didTapAvatar(_ sender: UIImageView) {
+        launchAvatarAnimaion ()
+    }
+    
+    @objc func didTapCloseAvatar(_ sender: UIImageView) {
+        launchAvatarCloseAnimaion ()
+    }
+    
+    // MARK: Privates
+    
+    private func addSubviews () {
         addSubview(fullNameLabel)
         addSubview(statusLabel)
         addSubview(setStatusButton)
         addSubview(statusTextField)
+        addSubview(avatarBackground)
+        addSubview(avatarCloseButton)
+        addSubview(avatarImageView)
+    }
+    
+    private func setupConstraints () {
         
         let safeAreaGuide = safeAreaLayoutGuide
         
@@ -109,19 +179,66 @@ class ProfileHeaderView: UIView {
             setStatusButton.leadingAnchor.constraint(equalTo: safeAreaGuide.leadingAnchor, constant: offset1),
             setStatusButton.trailingAnchor.constraint(equalTo: safeAreaGuide.trailingAnchor, constant: -offset1),
             setStatusButton.heightAnchor.constraint(equalToConstant: 50),
-            setStatusButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -offset1)
+            setStatusButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -offset1),
+            
+            avatarCloseButton.topAnchor.constraint(equalTo: safeAreaGuide.topAnchor, constant: offset1),
+            avatarCloseButton.trailingAnchor.constraint(equalTo: safeAreaGuide.trailingAnchor, constant: -offset1)
         ])
         
-        setStatusButton.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
-        statusTextField.addTarget(self, action: #selector(statusTextChanged(_:)), for: .editingChanged)
+    }
+
+     func launchAvatarAnimaion () {
+        avatarImageView.isUserInteractionEnabled = false
         
+        
+        avatarOriginCenter = avatarImageView.center
+        let scale = UIScreen.main.bounds.width / avatarImageView.bounds.width
+        
+        UIView.animate(
+            withDuration: 0.5,
+            delay: 0.0,
+            options: .curveLinear
+        ) {
+            self.avatarImageView.center = CGPoint (x: UIScreen.main.bounds.midX, y: UIScreen.main.bounds.midY - avatarOriginCenter.y)
+            self.avatarImageView.transform = CGAffineTransform(scaleX: scale, y: scale)
+            self.avatarImageView.layer.cornerRadius = 0
+            self.avatarImageView.layer.borderWidth = 0
+            self.avatarBackground.isHidden = false
+            self.avatarBackground.alpha = 0.8
+
+        } completion: { finished in
+            UIView.animate(
+                withDuration: 0.3,
+                delay: 0.0,
+                options: .curveLinear
+            ) {
+                self.avatarCloseButton.alpha = 1
+
+            }
+        }
     }
     
-    @objc func buttonPressed(_ sender: UIButton) {
-        statusLabel.text = statusText
-    }
+    private func launchAvatarCloseAnimaion () {
     
-    @objc func statusTextChanged(_ sender: UITextField) {
-        statusText = statusTextField.text ?? ""
+        
+        
+        UIView.animate(
+            withDuration: 0.5,
+            delay: 0.0,
+            options: .curveLinear
+        ) {
+            self.avatarImageView.center = avatarOriginCenter
+            self.avatarImageView.transform = CGAffineTransform(scaleX: 1, y: 1)
+            self.avatarImageView.layer.cornerRadius = self.avatarImageView.bounds.width/2
+            self.avatarImageView.layer.borderWidth = 3
+            self.avatarBackground.alpha = 0
+            self.avatarBackground.isHidden = true
+            self.avatarCloseButton.alpha = 0
+            
+        } completion: { finished in
+            self.avatarImageView.isUserInteractionEnabled = true
+        }
     }
 }
+
+
